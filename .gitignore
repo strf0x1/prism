@@ -1,2 +1,3 @@
 *.pcap
 *.log
+containers-data/suricata/logs/eve.json
