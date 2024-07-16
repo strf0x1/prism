@@ -135,7 +135,7 @@ services:
         container_name: arkime
         build:
           context: ./arkime
-          dockerfile: arkime.Dockerfile
+          dockerfile: arkime_custom.Dockerfile
         image: custom-arkime:latest
         restart: ${RESTART_MODE:-no}
         depends_on:

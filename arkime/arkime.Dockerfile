@@ -1,9 +1,13 @@
+ARG UBUNTU_VERSION=22.04
+FROM ubuntu:$UBUNTU_VERSION as installer
 
-
-FROM debian:bullseye as installer
+# deps
+RUN apt-get -qq update && \
+    apt-get -yq upgrade && \
+    apt-get install -yq curl libmagic-dev wget logrotate
 
 # Declare args
-ARG ARKIME_VERSION=5.0.0
+ARG ARKIME_VERSION=5.3.0
 ARG UBUNTU_VERSION=20.04
 ARG ARKIME_DEB_PACKAGE="arkime_"$ARKIME_VERSION"-1_amd64.deb"
 ARG ARKIMEDIR "/opt/arkime"

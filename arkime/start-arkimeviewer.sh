@@ -1,7 +1,11 @@
 #!/bin/bash
-echo "Using ES_HOST: $ES_HOST and ES_PORT: $ES_PORT"
+export ES_HOST="elasticsearch"
+export ES_PORT="9200"
+export ARKIME_DIR="/opt/arkime"
+export ARKIME_VERSION="5.0.0"
+echo "Using ES_HOST:"$ES_HOST"and ES_PORT:"$ES_PORT
 echo "Giving ES time to start..."
-until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health"
+until curl -sS "http://elasticsearch:9200/_cluster/health"
 do
     echo "Waiting for ES to start"
     sleep 3
