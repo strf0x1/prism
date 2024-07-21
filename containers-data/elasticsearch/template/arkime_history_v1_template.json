@@ -1,0 +1,82 @@
+{
+  "arkime_history_v1_template" : {
+    "order" : 0,
+    "index_patterns" : [
+      "arkime_history_v1-*"
+    ],
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "1",
+        "auto_expand_replicas" : "0-1",
+        "number_of_replicas" : "0"
+      }
+    },
+    "mappings" : {
+      "_source" : {
+        "enabled" : "true"
+      },
+      "dynamic" : "strict",
+      "properties" : {
+        "expression" : {
+          "type" : "keyword"
+        },
+        "method" : {
+          "type" : "keyword"
+        },
+        "esQuery" : {
+          "index" : "false",
+          "type" : "text"
+        },
+        "query" : {
+          "type" : "keyword"
+        },
+        "range" : {
+          "type" : "integer"
+        },
+        "recordsReturned" : {
+          "type" : "integer"
+        },
+        "esQueryIndices" : {
+          "index" : "false",
+          "type" : "text"
+        },
+        "body" : {
+          "dynamic" : "true",
+          "type" : "object",
+          "enabled" : "false"
+        },
+        "userId" : {
+          "type" : "keyword"
+        },
+        "recordsTotal" : {
+          "type" : "long"
+        },
+        "view" : {
+          "dynamic" : "true",
+          "type" : "object"
+        },
+        "recordsFiltered" : {
+          "type" : "long"
+        },
+        "uiPage" : {
+          "type" : "keyword"
+        },
+        "queryTime" : {
+          "type" : "integer"
+        },
+        "api" : {
+          "type" : "keyword"
+        },
+        "forcedExpression" : {
+          "type" : "keyword"
+        },
+        "timestamp" : {
+          "format" : "epoch_second",
+          "type" : "date"
+        }
+      }
+    },
+    "aliases" : { }
+  }
+}
+

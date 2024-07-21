@@ -1,0 +1,13 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "gusztavvargadr/ubuntu-server-2404-lts"
+  config.vm.box_version = "2404.0.2405"
+  config.vm.provider "vmware_desktop"
+  config.vm.synced_folder "./shared", "/vagrant_data"
+
+  # resolve ansible dependencies
+  config.vm.provision "shell", inline: <<-SHELL
+    chmod +x /vagrant_data/setup.sh
+    /vagrant_data/setup.sh
+  SHELL
+
+end

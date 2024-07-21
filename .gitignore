@@ -1,3 +1,4 @@
 *.pcap
 *.log
+*.vagrant
 containers-data/suricata/logs/eve.json

@@ -1,0 +1,285 @@
+{
+  "logstash" : {
+    "order" : 1,
+    "version" : 70002,
+    "index_patterns" : [
+      "logstash-*"
+    ],
+    "settings" : {
+      "index" : {
+        "mapping" : {
+          "total_fields" : {
+            "limit" : "10000"
+          }
+        },
+        "refresh_interval" : "5s",
+        "analysis" : {
+          "analyzer" : {
+            "sn_analyzer" : {
+              "type" : "custom",
+              "char_filter" : [
+                "sn_lowercase"
+              ],
+              "tokenizer" : "whitespace"
+            }
+          },
+          "char_filter" : {
+            "sn_lowercase" : {
+              "type" : "mapping",
+              "mappings" : [
+                "A => a",
+                "B => b",
+                "C => c",
+                "D => d",
+                "E => e",
+                "F => f",
+                "G => g",
+                "H => h",
+                "I => i",
+                "J => j",
+                "K => k",
+                "L => l",
+                "M => m",
+                "N => n",
+                "O => o",
+                "P => p",
+                "Q => q",
+                "R => r",
+                "S => s",
+                "T => t",
+                "U => u",
+                "V => v",
+                "W => w",
+                "X => x",
+                "Y => y",
+                "Z => z"
+              ]
+            }
+          }
+        },
+        "number_of_replicas" : "0"
+      }
+    },
+    "mappings" : {
+      "dynamic_templates" : [
+        {
+          "message_field" : {
+            "path_match" : "message",
+            "mapping" : {
+              "search_analyzer" : "sn_analyzer",
+              "search_quote_analyzer" : "sn_analyzer",
+              "norms" : false,
+              "analyzer" : "sn_analyzer",
+              "type" : "text"
+            },
+            "match_mapping_type" : "string"
+          }
+        },
+        {
+          "string_fields" : {
+            "mapping" : {
+              "search_analyzer" : "sn_analyzer",
+              "search_quote_analyzer" : "sn_analyzer",
+              "norms" : false,
+              "analyzer" : "sn_analyzer",
+              "type" : "text",
+              "fields" : {
+                "raw" : {
+                  "ignore_above" : 256,
+                  "type" : "keyword"
+                },
+                "keyword" : {
+                  "ignore_above" : 256,
+                  "type" : "keyword"
+                }
+              }
+            },
+            "match_mapping_type" : "string",
+            "match" : "*"
+          }
+        },
+        {
+          "percentage_fields_long_to_float" : {
+            "path_match" : "*.pct",
+            "mapping" : {
+              "type" : "float"
+            },
+            "match_mapping_type" : "long"
+          }
+        }
+      ],
+      "properties" : {
+        "proc" : {
+          "properties" : {
+            "mem" : {
+              "properties" : {
+                "rss_p" : {
+                  "type" : "float",
+                  "doc_values" : "true"
+                }
+              }
+            },
+            "cpu" : {
+              "properties" : {
+                "user_p" : {
+                  "type" : "float",
+                  "doc_values" : "true"
+                }
+              }
+            }
+          }
+        },
+        "geoip" : {
+          "dynamic" : true,
+          "properties" : {
+            "ip" : {
+              "type" : "ip"
+            },
+            "latitude" : {
+              "type" : "half_float"
+            },
+            "location" : {
+              "type" : "geo_point"
+            },
+            "longitude" : {
+              "type" : "half_float"
+            }
+          }
+        },
+        "swap" : {
+          "properties" : {
+            "used_p" : {
+              "type" : "float",
+              "doc_values" : "true"
+            }
+          }
+        },
+        "ip" : {
+          "type" : "ip"
+        },
+        "cpu" : {
+          "properties" : {
+            "user_p" : {
+              "type" : "float",
+              "doc_values" : "true"
+            },
+            "system_p" : {
+              "type" : "float",
+              "doc_values" : "true"
+            }
+          }
+        },
+        "fs" : {
+          "properties" : {
+            "used_p" : {
+              "type" : "float",
+              "doc_values" : "true"
+            }
+          }
+        },
+        "src_ip" : {
+          "type" : "ip",
+          "fields" : {
+            "raw" : {
+              "type" : "keyword"
+            },
+            "keyword" : {
+              "type" : "keyword"
+            }
+          }
+        },
+        "@timestamp" : {
+          "type" : "date"
+        },
+        "load" : {
+          "properties" : {
+            "load5" : {
+              "type" : "float",
+              "doc_values" : "true"
+            },
+            "load1" : {
+              "type" : "float",
+              "doc_values" : "true"
+            },
+            "load15" : {
+              "type" : "float",
+              "doc_values" : "true"
+            }
+          }
+        },
+        "mem" : {
+          "properties" : {
+            "used_p" : {
+              "type" : "float",
+              "doc_values" : "true"
+            },
+            "actual_used_p" : {
+              "type" : "float",
+              "doc_values" : "true"
+            }
+          }
+        },
+        "alert" : {
+          "properties" : {
+            "source" : {
+              "properties" : {
+                "ip" : {
+                  "type" : "ip",
+                  "fields" : {
+                    "keyword" : {
+                      "type" : "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "target" : {
+              "properties" : {
+                "ip" : {
+                  "type" : "ip",
+                  "fields" : {
+                    "keyword" : {
+                      "type" : "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "discovery" : {
+          "dynamic" : true,
+          "properties" : {
+            "asset" : {
+              "type" : "ip",
+              "fields" : {
+                "raw" : {
+                  "type" : "keyword"
+                },
+                "keyword" : {
+                  "type" : "keyword"
+                }
+              }
+            }
+          }
+        },
+        "dest_ip" : {
+          "type" : "ip",
+          "fields" : {
+            "raw" : {
+              "type" : "keyword"
+            },
+            "keyword" : {
+              "type" : "keyword"
+            }
+          }
+        },
+        "@version" : {
+          "type" : "keyword"
+        }
+      }
+    },
+    "aliases" : { }
+  }
+}
+

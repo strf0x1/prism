@@ -1,0 +1,17 @@
+{
+  "logstash-with-ilm" : {
+    "order" : 100,
+    "index_patterns" : [
+      "logstash-*"
+    ],
+    "settings" : {
+      "index" : {
+        "lifecycle" : {
+          "name" : "logstash-autodelete"
+        }
+      }
+    },
+    "mappings" : { },
+    "aliases" : { }
+  }
+}
