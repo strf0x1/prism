@@ -3,4 +3,4 @@
 # time on m2 mac was about 3:30 for msfvenom reverse_tcp payload with YARA Forge full
 # should test CORE and EXTENDED YARA Forge files to see speed vs. effectiveness
 # https://yarahq.github.io/
-docker run -v ${PWD}/malware:/malware -v ${PWD}/rules:/rules yara-x scan /rules /malware -w
+docker run -v ${PWD}/malware:/malware -v ${PWD}/rules:/rules yara-x-container scan /rules /malware -w
